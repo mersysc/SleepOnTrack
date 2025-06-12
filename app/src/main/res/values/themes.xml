@@ -1,0 +1,9 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.SleepOnTrack_App" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Kolory możesz dopasować później -->
+        <item name="colorPrimary">#BAD5F0</item>
+        <item name="colorPrimaryVariant">#4D749C</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="android:statusBarColor" tools:targetApi="l">#4D749C</item>
+    </style>
+</resources>

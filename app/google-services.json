@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "733439499445",
+    "project_id": "sleepontrack-36544",
+    "storage_bucket": "sleepontrack-36544.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733439499445:android:5f3b2d4011f2138abbf2fc",
+        "android_client_info": {
+          "package_name": "com.example.sleepontrack_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrW_d6OgLGVHq5R6Gbke8HsHk8FDLViYg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733439499445:android:d82726c626828bf5bbf2fc",
+        "android_client_info": {
+          "package_name": "com.example.sleepontrack_app.ui.theme"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrW_d6OgLGVHq5R6Gbke8HsHk8FDLViYg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
