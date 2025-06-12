@@ -1,5 +1,9 @@
 package com.example.sleepontrack_app
 
+import android.content.Intent
+import com.example.sleepontrack_app.firestore.User
+import com.example.sleepontrack_app.firestore.FirestoreManagement
+import com.google.firebase.firestore.FirebaseFirestore
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -63,13 +67,23 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
 
-
-
             auth.createUserWithEmailAndPassword(email, password1)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(this, "Zarejestrowano pomyślnie", Toast.LENGTH_SHORT).show()
-                        // np. przejście do loginu lub main
+                        val userId = auth.currentUser?.uid ?: return@addOnCompleteListener
+                        val user = User(id = userId, nickname = nickname)
+
+                        val db = FirebaseFirestore.getInstance()
+                        db.collection("users").document(userId).set(user)
+                            .addOnSuccessListener {
+                                Toast.makeText(this, "User registered and saved", Toast.LENGTH_SHORT).show()
+                                startActivity(Intent(this, ClockActivity::class.java))
+                                finish()
+                            }
+                            .addOnFailureListener { e ->
+                                Toast.makeText(this, "Error saving user: ${e.message}", Toast.LENGTH_LONG).show()
+                            }
+
                     } else {
                         Toast.makeText(this, "Błąd: ${task.exception?.message}", Toast.LENGTH_LONG).show()
                     }
