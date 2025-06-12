@@ -10,7 +10,7 @@
 
     <!-- Tytuł -->
     <TextView
-        android:id="@+id/wakeup_text"
+        android:id="@+id/sleep_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="172dp"
@@ -41,11 +41,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/wakeup_text" />
+        app:layout_constraintTop_toBottomOf="@id/sleep_text" />
 
     <!-- Przycisk wyboru czasu -->
-
-    <!-- Przycisk potwierdzenia -->
 
     <Button
         android:id="@+id/selectTimeButton"
@@ -62,7 +60,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/selectedTimeText" />
 
-    <!-- Przycisk pominięcia -->
+    <!-- Przycisk potwierdzenia -->
+
     <Button
         android:id="@+id/confirm_button_full"
         android:layout_width="202dp"
@@ -78,6 +77,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/selectTimeButton" />
 
+    <!-- Przycisk pominięcia -->
     <Button
         android:id="@+id/skip_button"
         android:layout_width="120dp"

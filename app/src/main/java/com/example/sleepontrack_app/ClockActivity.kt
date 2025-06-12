@@ -1,5 +1,4 @@
 package com.example.sleepontrack_app
-
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.widget.Button
@@ -12,14 +11,12 @@ import java.util.Calendar
 import java.util.Locale
 
 class ClockActivity : AppCompatActivity() {
-    private lateinit var selectedTimeText: TextView  // ← dostępna globalnie
+    private lateinit var selectedTimeText: TextView
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.sleep_activity)
-
-        // Inicjalizacje
         auth = FirebaseAuth.getInstance()
         val database = FirebaseDatabase.getInstance().reference
 
