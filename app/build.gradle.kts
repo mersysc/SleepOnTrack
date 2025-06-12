@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 
 }
+apply(plugin = "com.google.gms.google-services")
 
 android {
     namespace = "com.example.sleepontrack_app"
