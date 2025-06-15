@@ -37,6 +37,9 @@
             android:name=".ClockActivity"
             android:exported="true" />
 
+        <activity
+            android:name=".MainPageActivity"
+            android:exported="true"/>
 
 
         <meta-data

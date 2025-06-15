@@ -2,7 +2,6 @@ package com.example.sleepontrack_app
 
 import android.content.Intent
 import com.example.sleepontrack_app.firestore.User
-import com.example.sleepontrack_app.firestore.FirestoreManagement
 import com.google.firebase.firestore.FirebaseFirestore
 import android.os.Bundle
 import android.widget.Button

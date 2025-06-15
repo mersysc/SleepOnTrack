@@ -9,7 +9,26 @@
     android:background="@drawable/background_bubbles"
     tools:context=".RegisterActivity">
 
+    <!-- Guideline ~15% od góry -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/top_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
     <!-- Tytuł -->
+    <TextView
+        android:id="@+id/registerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montez"
+        android:text="Create Account"
+        android:textColor="#BAD5F0"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_guideline" />
 
     <!-- Nick -->
     <com.google.android.material.textfield.TextInputLayout
@@ -22,20 +41,18 @@
         app:layout_constraintTop_toBottomOf="@id/registerTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp"
-        android:layout_marginHorizontal="16dp">
+        app:layout_constraintWidth_max="320dp"
+        android:layout_marginTop="32dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nickname_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/editbox_background"
             android:fontFamily="@font/eczar_semibold"
             android:hint="nick"
             android:inputType="textPersonName"
             android:textColor="#4D749C"
-            android:textColorHint="#AAAAAA"
-            tools:ignore="TouchTargetSizeCheck" />
+            android:textColorHint="#AAAAAA" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- E-mail -->
@@ -49,20 +66,18 @@
         app:layout_constraintTop_toBottomOf="@id/nicknameLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp">
+        app:layout_constraintWidth_max="320dp"
+        android:layout_marginTop="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/editbox_background"
             android:fontFamily="@font/eczar_semibold"
             android:hint="e-mail"
             android:inputType="textEmailAddress"
             android:textColor="#4D749C"
-            android:textColorHint="#AAAAAA"
-            tools:ignore="TouchTargetSizeCheck" />
+            android:textColorHint="#AAAAAA" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Hasło -->
@@ -76,20 +91,18 @@
         app:layout_constraintTop_toBottomOf="@id/emailLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp">
+        app:layout_constraintWidth_max="320dp"
+        android:layout_marginTop="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password1_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/editbox_background"
             android:fontFamily="@font/eczar_semibold"
             android:hint="password"
             android:inputType="textPassword"
             android:textColor="#4D749C"
-            android:textColorHint="#AAAAAA"
-            tools:ignore="TouchTargetSizeCheck" />
+            android:textColorHint="#AAAAAA" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Powtórz hasło -->
@@ -103,63 +116,48 @@
         app:layout_constraintTop_toBottomOf="@id/password1Layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp">
+        app:layout_constraintWidth_max="320dp"
+        android:layout_marginTop="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password2_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/editbox_background"
             android:fontFamily="@font/eczar_semibold"
             android:hint="repeat password"
             android:inputType="textPassword"
             android:textColor="#4D749C"
-            android:textColorHint="#AAAAAA"
-            tools:ignore="TouchTargetSizeCheck" />
+            android:textColorHint="#AAAAAA" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Sign Up button -->
+    <!-- Sign Up Button -->
     <Button
         android:id="@+id/register_button"
         android:layout_width="0dp"
-        android:layout_height="90dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="24dp"
         android:text="SIGN UP"
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:fontFamily="@font/eczar_semibold"
         android:textColor="#4D749C"
         android:background="@drawable/rounded_button"
         app:layout_constraintTop_toBottomOf="@id/password2Layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"
-        android:layout_marginHorizontal="16dp" />
+        app:layout_constraintWidth_max="320dp" />
 
-    <TextView
-        android:id="@+id/registerTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="172dp"
-        android:fontFamily="@font/montez"
-        android:text="Create Account"
-        android:textColor="#BAD5F0"
-        android:textSize="70sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+    <!-- Logo na dole -->
     <TextView
         android:id="@+id/logo3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="756dp"
+        android:layout_marginBottom="24dp"
         android:fontFamily="@font/montez"
         android:text="SOT"
         android:textColor="#BAD5F0"
-        android:textSize="50sp"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

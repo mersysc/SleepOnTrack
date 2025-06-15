@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import java.util.Calendar
 import java.util.Locale
+import com.google.firebase.firestore.FirebaseFirestore
+
 
 class ClockActivity : AppCompatActivity() {
     private lateinit var selectedTimeText: TextView
@@ -18,7 +20,7 @@ class ClockActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.sleep_activity)
         auth = FirebaseAuth.getInstance()
-        val database = FirebaseDatabase.getInstance().reference
+        val database = FirebaseFirestore.getInstance()
 
         val selectTimeButton = findViewById<Button>(R.id.selectTimeButton)
         selectedTimeText = findViewById(R.id.selectedTimeText)
@@ -68,8 +70,10 @@ class ClockActivity : AppCompatActivity() {
 
                 Log.d("FirebaseWrite", "UID: $userId DATA: $sleepData")
 
-                database.child("users").child(userId).child("sleepEntries").push()
-                    .setValue(sleepData)
+                database.collection("users")
+                    .document(userId)
+                    .collection("sleepEntries")
+                    .add(sleepData)
                     .addOnSuccessListener {
                         Toast.makeText(this, "Sleep time saved!", Toast.LENGTH_SHORT).show()
                     }

@@ -33,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, ClockActivity::class.java)
+                        val intent = Intent(this, MainPageActivity::class.java)
                         startActivity(intent)
                         finish()
                     } else {
