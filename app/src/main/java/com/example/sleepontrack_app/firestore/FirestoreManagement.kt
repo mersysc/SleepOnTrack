@@ -1,6 +1,5 @@
-package com.example.sleepontrack_app.firebase
+package com.example.sleepontrack_app.firestore
 
-import com.example.sleepontrack_app.firestore.User
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 

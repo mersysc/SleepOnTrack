@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,15 +7,17 @@
     android:layout_height="match_parent"
     android:padding="24dp"
     android:background="@drawable/background_bubbles"
-    tools:context="ClockActivity">
+    tools:context=".ClockActivity">
 
     <!-- Tytuł -->
     <TextView
         android:id="@+id/sleep_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="172dp"
+        android:layout_marginTop="48dp"
         android:fontFamily="@font/montez"
+        android:lineSpacingExtra="0dp"
+        android:lineSpacingMultiplier="0.9"
         android:shadowColor="#80000000"
         android:shadowDx="2"
         android:shadowDy="2"
@@ -24,7 +27,6 @@
         android:textColor="#BAD5F0"
         android:textSize="60sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,78 +35,72 @@
         android:id="@+id/selectedTimeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/eczar_semibold"
         android:text="TIME: --:--"
         android:textColor="#BAD5F0"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        android:textSize="28sp"
+        app:layout_constraintTop_toBottomOf="@id/sleep_text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sleep_text" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Przycisk wyboru czasu -->
-
     <Button
         android:id="@+id/selectTimeButton"
-        android:layout_width="202dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="240dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/rounded_button"
         android:fontFamily="@font/eczar_semibold"
         android:text="SELECT"
         android:textColor="#4D749C"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/selectedTimeText"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/selectedTimeText" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Przycisk potwierdzenia -->
-
     <Button
         android:id="@+id/confirm_button_full"
-        android:layout_width="202dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="64dp"
+        android:layout_width="240dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/rounded_button"
         android:fontFamily="@font/eczar_semibold"
-        android:text="Confirm"
+        android:text="CONFIRM"
         android:textColor="#4D749C"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/selectTimeButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/selectTimeButton" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Przycisk pominięcia -->
     <Button
         android:id="@+id/skip_button"
-        android:layout_width="120dp"
-        android:layout_height="48dp"
+        android:layout_width="140dp"
+        android:layout_height="44dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/rounded_button"
         android:fontFamily="@font/eczar_semibold"
         android:text="SKIP"
         android:textColor="#4D749C"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/confirm_button_full"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/confirm_button_full" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Logo -->
     <TextView
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginBottom="16dp"
         android:fontFamily="@font/montez"
         android:text="SOT"
         android:textColor="#BAD5F0"
-        android:textSize="50sp"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/skip_button" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
