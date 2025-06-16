@@ -1,5 +1,6 @@
 package com.example.sleepontrack_app
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
@@ -29,6 +30,7 @@ class ClockActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         viewFlipper = findViewById(R.id.viewFlipper)
 
+        // dla snu
         val sleepTimeText = findViewById<TextView>(R.id.sleepTimeText)
         findViewById<Button>(R.id.btnSelectSleepTime).setOnClickListener {
             showTimePicker { time ->
@@ -112,6 +114,10 @@ class ClockActivity : AppCompatActivity() {
                 FirestoreManagement().saveSleepSession(userId, session)
                 runOnUiThread {
                     toast("Sleep session saved!")
+                    // ZAMIENIAMY finish() NA:
+                    val intent = Intent(this@ClockActivity, MainPageActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
                     finish()
                 }
             } catch (e: Exception) {

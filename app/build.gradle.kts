@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 
 }
-apply(plugin = "com.google.gms.google-services")
 
 android {
     namespace = "com.example.sleepontrack_app"
@@ -66,5 +65,6 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.constraintlayout:constraintlayout:2.2.0-alpha13")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
+    implementation("com.google.firebase:firebase-firestore")
 
 }
