@@ -2,90 +2,126 @@ package com.example.sleepontrack_app
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.sleepontrack_app.firestore.FirestoreManagement
+import com.example.sleepontrack_app.firestore.SleepSession
 import com.google.firebase.auth.FirebaseAuth
-import java.util.Calendar
-import java.util.Locale
-import com.google.firebase.firestore.FirebaseFirestore
-
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ClockActivity : AppCompatActivity() {
-    private lateinit var selectedTimeText: TextView
     private lateinit var auth: FirebaseAuth
+    private lateinit var viewFlipper: ViewFlipper
+
+    private var sleepTime: String? = null
+    private var wakeTime: String? = null
+    private var rating: Int = 0
+    private var note: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.sleep_activity)
+
         auth = FirebaseAuth.getInstance()
-        val database = FirebaseFirestore.getInstance()
+        viewFlipper = findViewById(R.id.viewFlipper)
 
-        val selectTimeButton = findViewById<Button>(R.id.selectTimeButton)
-        selectedTimeText = findViewById(R.id.selectedTimeText)
-        val confirmButton = findViewById<Button>(R.id.confirm_button_full)
-
-        // Domyślna godzina
-        val calendar = Calendar.getInstance()
-        var hour = calendar.get(Calendar.HOUR_OF_DAY)
-        var minute = calendar.get(Calendar.MINUTE)
-
-        // Obsługa przycisku wyboru czasu
-        selectTimeButton.setOnClickListener {
-            val timePickerDialog = TimePickerDialog(
-                this,
-                { _, selectedHour, selectedMinute ->
-                    hour = selectedHour
-                    minute = selectedMinute
-
-                    val isPM = hour >= 12
-                    val displayHour = if (hour == 0 || hour == 12) 12 else hour % 12
-                    val amPm = if (isPM) "PM" else "AM"
-
-                    val formattedTime = String.format(
-                        Locale.getDefault(),
-                        "%02d:%02d %s",
-                        displayHour,
-                        minute,
-                        amPm
-                    )
-                    selectedTimeText.text = "TIME: $formattedTime"
-                },
-                hour, minute, false
-            )
-            timePickerDialog.show()
-        }
-
-        // Obsługa przycisku Confirm
-        confirmButton.setOnClickListener {
-            val userId = auth.currentUser?.uid
-            val timeText = selectedTimeText.text?.toString()?.takeIf { it.contains(":") } ?: ""
-
-            if (userId != null && timeText.isNotBlank()) {
-                val sleepData = mapOf(
-                    "sleepTime" to timeText,
-                    "timestamp" to System.currentTimeMillis()
-                )
-
-                Log.d("FirebaseWrite", "UID: $userId DATA: $sleepData")
-
-                database.collection("users")
-                    .document(userId)
-                    .collection("sleepEntries")
-                    .add(sleepData)
-                    .addOnSuccessListener {
-                        Toast.makeText(this, "Sleep time saved!", Toast.LENGTH_SHORT).show()
-                    }
-                    .addOnFailureListener {
-                        Toast.makeText(this, "Failed to save: ${it.message}", Toast.LENGTH_SHORT)
-                            .show()
-                        Log.e("FirebaseWrite", "Firebase error", it)
-                    }
-            } else {
-                Toast.makeText(this, "Please select a valid time first", Toast.LENGTH_SHORT).show()
-                Log.w("FirebaseWrite", "Missing user or invalid timeText: '$timeText'")
+        val sleepTimeText = findViewById<TextView>(R.id.sleepTimeText)
+        findViewById<Button>(R.id.btnSelectSleepTime).setOnClickListener {
+            showTimePicker { time ->
+                sleepTime = time
+                sleepTimeText.text = "Sleep Time: $time"
             }
         }
+
+        findViewById<Button>(R.id.btnNext1).setOnClickListener {
+            if (sleepTime != null) viewFlipper.showNext() else toast("Select sleep time")
+        }
+        findViewById<Button>(R.id.btnSkip1).setOnClickListener {
+            finish()
+        }
+
+        val wakeTimeText = findViewById<TextView>(R.id.wakeTimeText)
+        findViewById<Button>(R.id.btnSelectWakeTime).setOnClickListener {
+            showTimePicker { time ->
+                wakeTime = time
+                wakeTimeText.text = "Wake Time: $time"
+            }
+        }
+
+        findViewById<Button>(R.id.btnNext2).setOnClickListener {
+            if (wakeTime != null) viewFlipper.showNext() else toast("Select wake time")
+        }
+        findViewById<Button>(R.id.btnSkip2).setOnClickListener {
+            finish()
+        }
+
+        val ratingBar = findViewById<RatingBar>(R.id.ratingBar)
+        findViewById<Button>(R.id.btnNext3).setOnClickListener {
+            rating = ratingBar.rating.toInt()
+            viewFlipper.showNext()
+        }
+        findViewById<Button>(R.id.btnSkip3).setOnClickListener {
+            rating = 0
+            viewFlipper.showNext()
+        }
+
+        val noteInput = findViewById<EditText>(R.id.noteInput)
+        findViewById<Button>(R.id.btnFinish).setOnClickListener {
+            note = noteInput.text.toString()
+            saveSession()
+        }
+        findViewById<Button>(R.id.btnSkip4).setOnClickListener {
+            note = ""
+            saveSession()
+        }
+    }
+
+    private fun showTimePicker(onTimeSelected: (String) -> Unit) {
+        val cal = Calendar.getInstance()
+        val hour = cal.get(Calendar.HOUR_OF_DAY)
+        val minute = cal.get(Calendar.MINUTE)
+        TimePickerDialog(this, { _, h, m ->
+            val time = String.format("%02d:%02d", h, m)
+            onTimeSelected(time)
+        }, hour, minute, true).show()
+    }
+
+    private fun saveSession() {
+        val userId = auth.currentUser?.uid
+        if (userId == null || sleepTime == null || wakeTime == null) {
+            toast("Missing required data")
+            return
+        }
+
+        val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        val session = SleepSession(
+            sleepTime = sleepTime!!,
+            wakeUpTime = wakeTime!!,
+            notificationTime = "",
+            sleepQuality = rating,
+            notes = note,
+            date = date
+        )
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                FirestoreManagement().saveSleepSession(userId, session)
+                runOnUiThread {
+                    toast("Sleep session saved!")
+                    finish()
+                }
+            } catch (e: Exception) {
+                Log.e("SaveSession", "Error", e)
+                runOnUiThread { toast("Failed to save session: ${e.message}") }
+            }
+        }
+    }
+
+    private fun toast(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 }
