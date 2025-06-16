@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
+    android:elevation="4dp"
+    android:radius="16dp"
+    android:backgroundTint="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:baselineAligned="false">
+
+        <!-- Teksty po lewej -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dateOfSleeptxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2025-06-15"
+                android:textColor="#BAD5F0"
+                android:textSize="18sp"
+                android:fontFamily="@font/eczar_semibold"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/hoursOfSleeptxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sleep: 7h 30m"
+                android:textColor="#BAD5F0"
+                android:textSize="16sp"
+                android:fontFamily="@font/eczar_semibold"/>
+
+            <TextView
+                android:id="@+id/ratingSleeptxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rating: ⭐⭐⭐⭐"
+                android:textColor="#BAD5F0"
+                android:textSize="16sp"
+                android:fontFamily="@font/eczar_semibold"/>
+        </LinearLayout>
+
+        <!-- Przyciski po prawej -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="end">
+
+            <Button
+                android:id="@+id/editButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EDIT"
+                android:textColor="#4D749C"
+                android:fontFamily="@font/eczar_semibold"
+                android:background="@drawable/rounded_button"
+                android:layout_marginBottom="8dp"/>
+
+            <Button
+                android:id="@+id/deleteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DELETE"
+                android:textColor="#4D749C"
+                android:fontFamily="@font/eczar_semibold"
+                android:background="@drawable/rounded_button"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
