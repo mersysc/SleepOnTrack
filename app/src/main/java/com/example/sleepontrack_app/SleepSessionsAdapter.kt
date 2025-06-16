@@ -63,5 +63,7 @@ data class SleepItemDisplay(
     val date: String,
     val duration: String,
     val rating: Int,
-    val notes: String
+    val notes: String,
+    val sleepTime: String,
+    val wakeTime: String
 )

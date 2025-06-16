@@ -23,12 +23,10 @@
             </intent-filter>
         </activity>
 
-        <!-- Rejestracja -->
         <activity
             android:name=".RegisterActivity"
             android:exported="true" />
 
-        <!-- Logowanie -->
         <activity
             android:name=".LoginActivity"
             android:exported="true" />
@@ -41,6 +39,9 @@
             android:name=".MainPageActivity"
             android:exported="true"/>
 
+        <activity
+            android:name=".SleepListActivity"
+            android:exported="true"/>
 
         <meta-data
             android:name="preloaded_fonts"
