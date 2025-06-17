@@ -23,6 +23,9 @@ class ClockActivity : AppCompatActivity() {
     private var rating: Int = 0
     private var note: String = ""
 
+    private var editMode: Boolean = false
+    private var passedDate: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.sleep_activity)
@@ -30,8 +33,32 @@ class ClockActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         viewFlipper = findViewById(R.id.viewFlipper)
 
-        // dla snu
+        // Odczytaj dane z intencji (jeśli edycja)
+        editMode = intent.getBooleanExtra("edit_mode", false)
+        passedDate = intent.getStringExtra("date")
+        val passedSleepTime = intent.getStringExtra("sleepTime")
+        val passedWakeTime = intent.getStringExtra("wakeTime")
+        val passedRating = intent.getIntExtra("rating", 0)
+        val passedNotes = intent.getStringExtra("notes")
+
         val sleepTimeText = findViewById<TextView>(R.id.sleepTimeText)
+        val wakeTimeText = findViewById<TextView>(R.id.wakeTimeText)
+        val ratingBar = findViewById<RatingBar>(R.id.ratingBar)
+        val noteInput = findViewById<EditText>(R.id.noteInput)
+
+        // Jeśli edycja - wstaw dane do pól
+        if (editMode) {
+            sleepTime = passedSleepTime
+            wakeTime = passedWakeTime
+            rating = passedRating
+            note = passedNotes ?: ""
+
+            sleepTimeText.text = "Sleep Time: $sleepTime"
+            wakeTimeText.text = "Wake Time: $wakeTime"
+            ratingBar.rating = rating.toFloat()
+            noteInput.setText(note)
+        }
+
         findViewById<Button>(R.id.btnSelectSleepTime).setOnClickListener {
             showTimePicker { time ->
                 sleepTime = time
@@ -46,7 +73,6 @@ class ClockActivity : AppCompatActivity() {
             finish()
         }
 
-        val wakeTimeText = findViewById<TextView>(R.id.wakeTimeText)
         findViewById<Button>(R.id.btnSelectWakeTime).setOnClickListener {
             showTimePicker { time ->
                 wakeTime = time
@@ -61,7 +87,6 @@ class ClockActivity : AppCompatActivity() {
             finish()
         }
 
-        val ratingBar = findViewById<RatingBar>(R.id.ratingBar)
         findViewById<Button>(R.id.btnNext3).setOnClickListener {
             rating = ratingBar.rating.toInt()
             viewFlipper.showNext()
@@ -71,7 +96,6 @@ class ClockActivity : AppCompatActivity() {
             viewFlipper.showNext()
         }
 
-        val noteInput = findViewById<EditText>(R.id.noteInput)
         findViewById<Button>(R.id.btnFinish).setOnClickListener {
             note = noteInput.text.toString()
             saveSession()
@@ -99,7 +123,9 @@ class ClockActivity : AppCompatActivity() {
             return
         }
 
-        val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        val date = if (editMode && passedDate != null) passedDate!! else
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+
         val session = SleepSession(
             sleepTime = sleepTime!!,
             wakeUpTime = wakeTime!!,
@@ -114,7 +140,6 @@ class ClockActivity : AppCompatActivity() {
                 FirestoreManagement().saveSleepSession(userId, session)
                 runOnUiThread {
                     toast("Sleep session saved!")
-                    // ZAMIENIAMY finish() NA:
                     val intent = Intent(this@ClockActivity, MainPageActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
                     startActivity(intent)

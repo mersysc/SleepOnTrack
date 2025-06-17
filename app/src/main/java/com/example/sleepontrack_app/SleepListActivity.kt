@@ -1,5 +1,6 @@
 package com.example.sleepontrack_app
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -92,8 +93,17 @@ class SleepListActivity : AppCompatActivity() {
     }
 
     private fun editSession(session: SleepItemDisplay) {
-        // TODO: implement edit logic (e.g. launch ClockActivity with session data)
+        val intent = Intent(this, ClockActivity::class.java).apply {
+            putExtra("edit_mode", true)
+            putExtra("date", session.date)
+            putExtra("sleepTime", session.sleepTime)
+            putExtra("wakeTime", session.wakeTime)
+            putExtra("rating", session.rating)
+            putExtra("notes", session.notes)
+        }
+        startActivity(intent)
     }
+
 
     private fun showDetailsDialog(session: SleepItemDisplay) {
         val message = """

@@ -1,11 +1,12 @@
 package com.example.sleepontrack_app
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sleepontrack_app.R
 
 class SleepSessionsAdapter(
     private val sessions: MutableList<SleepItemDisplay>,
@@ -14,48 +15,53 @@ class SleepSessionsAdapter(
     private val onDetails: (SleepItemDisplay) -> Unit
 ) : RecyclerView.Adapter<SleepSessionsAdapter.SleepViewHolder>() {
 
-    class SleepViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val dateText: TextView = itemView.findViewById(R.id.dateOfSleeptxt)
-        val durationText: TextView = itemView.findViewById(R.id.hoursOfSleeptxt)
-        val ratingText: TextView = itemView.findViewById(R.id.ratingSleeptxt)
-        val deleteButton: Button = itemView.findViewById(R.id.deleteButton)
-        val editButton: Button = itemView.findViewById(R.id.editButton)
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SleepViewHolder {
-        val itemView = LayoutInflater.from(parent.context)
+        val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.recyclerview, parent, false)
-        return SleepViewHolder(itemView)
+        return SleepViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: SleepViewHolder, position: Int) {
-        val session = sessions[position]
-        holder.dateText.text = session.date
-        holder.durationText.text = "Duration: ${session.duration}"
-        holder.ratingText.text = if (session.rating > 0)
-            "Rating: ${"⭐".repeat(session.rating)}"
-        else "No rating"
-
-        // Kliknięcia przycisków
-        holder.deleteButton.setOnClickListener { onDelete(session) }
-        holder.editButton.setOnClickListener { onEdit(session) }
-        holder.itemView.setOnClickListener { onDetails(session) }
+        holder.bind(sessions[position])
     }
 
     override fun getItemCount(): Int = sessions.size
-
-    fun removeItem(item: SleepItemDisplay) {
-        val index = sessions.indexOf(item)
-        if (index != -1) {
-            sessions.removeAt(index)
-            notifyItemRemoved(index)
-        }
-    }
 
     fun updateList(newList: List<SleepItemDisplay>) {
         sessions.clear()
         sessions.addAll(newList)
         notifyDataSetChanged()
+    }
+
+    fun removeItem(session: SleepItemDisplay) {
+        val position = sessions.indexOf(session)
+        if (position != -1) {
+            sessions.removeAt(position)
+            notifyItemRemoved(position)
+
+            if (sessions.isEmpty()) {
+                println("Brak zapisanych sesji snu")
+            }
+        }
+    }
+
+    inner class SleepViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val dateText: TextView = itemView.findViewById(R.id.dateOfSleeptxt)
+        private val durationText: TextView = itemView.findViewById(R.id.hoursOfSleeptxt)
+        private val ratingBar: RatingBar = itemView.findViewById(R.id.ratingBar)
+        private val btnDelete: Button = itemView.findViewById(R.id.deleteButton)
+        private val btnEdit: Button = itemView.findViewById(R.id.editButton)
+        private val btnDetails: Button = itemView.findViewById(R.id.sleepRecyclerView)
+
+        fun bind(session: SleepItemDisplay) {
+            dateText.text = session.date
+            durationText.text = session.duration
+            ratingBar.rating = session.rating.toFloat()
+
+            btnDelete.setOnClickListener { onDelete(session) }
+            btnEdit.setOnClickListener { onEdit(session) }
+            btnDetails.setOnClickListener { onDetails(session) }
+        }
     }
 }
 
