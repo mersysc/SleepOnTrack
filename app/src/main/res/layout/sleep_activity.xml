@@ -7,7 +7,7 @@
     android:padding="24dp"
     android:background="@drawable/background_bubbles">
 
-    <!-- ViewFlipper: zawiera 4 kroki -->
+    <!-- ViewFlipper: zawiera 5 krokow -->
     <ViewFlipper
         android:id="@+id/viewFlipper"
         android:layout_width="0dp"
@@ -16,6 +16,70 @@
         app:layout_constraintBottom_toTopOf="@+id/logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Choose the date:"
+            android:textSize="48sp"
+            android:fontFamily="@font/montez"
+            android:textColor="#BAD5F0"
+            android:shadowColor="#80000000"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="4"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DATE: Today"
+            android:textSize="20sp"
+            android:textColor="#BAD5F0"
+            android:fontFamily="@font/eczar_semibold"
+            android:layout_marginBottom="8dp"/>
+
+        <Button
+            android:id="@+id/btnSelectDate"
+            android:layout_width="240dp"
+            android:layout_height="52dp"
+            android:background="@drawable/rounded_button"
+            android:text="SELECT"
+            android:textColor="#4D749C"
+            android:textSize="20sp"
+            android:fontFamily="@font/eczar_semibold"
+            android:layout_marginBottom="16dp"/>
+        <Button
+            android:id="@+id/btnNext0"
+            android:layout_width="240dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/rounded_button"
+            android:text="NEXT"
+            android:textColor="#4D749C"
+            android:textSize="20sp"
+            android:fontFamily="@font/eczar_semibold"/>
+
+        <Button
+            android:id="@+id/btnSkip0"
+            android:layout_width="140dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rounded_button"
+            android:text="SKIP"
+            android:textColor="#4D749C"
+            android:textSize="16sp"
+            android:fontFamily="@font/eczar_semibold"/>
+    </LinearLayout>
+
 
         <!-- Krok 1: Godzina zaśnięcia -->
         <LinearLayout

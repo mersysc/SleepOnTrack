@@ -1,4 +1,5 @@
 package com.example.sleepontrack_app
+import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
@@ -17,11 +18,13 @@ import java.util.*
 class ClockActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var viewFlipper: ViewFlipper
-
+    private var selectedDate: String = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
     private var sleepTime: String? = null
     private var wakeTime: String? = null
     private var rating: Int = 0
     private var note: String = ""
+    private var isEditMode: Boolean = false
+    private var editedDate: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +32,50 @@ class ClockActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
         viewFlipper = findViewById(R.id.viewFlipper)
+
+        val dateText = findViewById<TextView>(R.id.dateText)
+        val btnSelectDate = findViewById<Button>(R.id.btnSelectDate)
+
+        dateText.text = "DATE: $selectedDate"
+
+        val extras = intent.extras
+        if (extras != null) {
+            isEditMode = extras.getBoolean("editMode", false)
+            sleepTime = extras.getString("sleepTime")
+            wakeTime = extras.getString("wakeTime")
+            rating = extras.getInt("rating", 0)
+            note = extras.getString("note") ?: ""
+            editedDate = extras.getString("date")
+            selectedDate = editedDate ?: selectedDate
+
+
+            findViewById<TextView>(R.id.sleepTimeText).text = "Sleep Time: $sleepTime"
+            findViewById<TextView>(R.id.wakeTimeText).text = "Wake Time: $wakeTime"
+            findViewById<RatingBar>(R.id.ratingBar).rating = rating.toFloat()
+            findViewById<EditText>(R.id.noteInput).setText(note)
+            findViewById<TextView>(R.id.dateText).text = "DATE: $selectedDate"
+        }
+
+
+
+        btnSelectDate.setOnClickListener {
+            val cal = Calendar.getInstance()
+            val datePicker = DatePickerDialog(this, { _, dayOfMonth, month, year ->
+                val pickedDate = Calendar.getInstance()
+                pickedDate.set(year, month, dayOfMonth)
+                selectedDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(pickedDate.time)
+                dateText.text = "DATE: $selectedDate"
+            }, cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH), cal.get(Calendar.YEAR))
+            datePicker.show()
+        }
+        findViewById<Button>(R.id.btnNext0).setOnClickListener {
+            if (selectedDate != null) viewFlipper.showNext() else toast("Select date!")
+        }
+        findViewById<Button>(R.id.btnSkip0).setOnClickListener {
+            toast("Sleep log skipped")
+            finish()
+        }
+
 
         // dla snu
         val sleepTimeText = findViewById<TextView>(R.id.sleepTimeText)
@@ -99,7 +146,7 @@ class ClockActivity : AppCompatActivity() {
             return
         }
 
-        val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        val date = selectedDate
         val session = SleepSession(
             sleepTime = sleepTime!!,
             wakeUpTime = wakeTime!!,

@@ -1,5 +1,6 @@
 package com.example.sleepontrack_app
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -88,12 +89,34 @@ class SleepListActivity : AppCompatActivity() {
     }
 
     private fun deleteSession(session: SleepItemDisplay) {
-        // TODO: implement Firebase deletion logic here
+        if (userId == null) return
+
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                withContext(Dispatchers.IO) {
+                    FirestoreManagement().deleteSleepSession(userId!!, session.date)
+                }
+                adapter.removeItem(session)
+                Toast.makeText(this@SleepListActivity, "Session deleted", Toast.LENGTH_SHORT).show()
+            } catch (e: Exception) {
+                Toast.makeText(this@SleepListActivity, "Delete failed: ${e.message}", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
+
     private fun editSession(session: SleepItemDisplay) {
-        // TODO: implement edit logic (e.g. launch ClockActivity with session data)
+        val intent = Intent(this, ClockActivity::class.java).apply {
+            putExtra("sleepTime", session.sleepTime)
+            putExtra("wakeTime", session.wakeTime)
+            putExtra("rating", session.rating)
+            putExtra("note", session.notes)
+            putExtra("date", session.date)
+            putExtra("editMode", true) // flagowanie trybu edycji
+        }
+        startActivity(intent)
     }
+
 
     private fun showDetailsDialog(session: SleepItemDisplay) {
         val message = """

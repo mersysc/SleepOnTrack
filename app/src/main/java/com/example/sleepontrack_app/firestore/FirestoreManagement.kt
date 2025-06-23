@@ -51,4 +51,13 @@ class FirestoreManagement {
             .await()
         return snapshot.toObjects(SleepSession::class.java)
     }
+
+    suspend fun deleteSleepSession(userId: String, date: String) {
+        mFireStore.collection("users")
+            .document(userId)
+            .collection("sleepSessions")
+            .document(date)
+            .delete()
+            .await()
+    }
 }
