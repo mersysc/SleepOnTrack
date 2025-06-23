@@ -3,7 +3,10 @@ package com.example.sleepontrack_app
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 
@@ -15,8 +18,7 @@ class MainPageActivity : AppCompatActivity() {
 
         val logSleep = findViewById<Button>(R.id.logSleepButton)
         val historyOfSleepButton = findViewById<Button>(R.id.recent_logs_button)
-        val notificationsButton = findViewById<Button>(R.id.notifications_button)
-        val logoutButton= findViewById<Button>(R.id.logout_button)
+
 
         logSleep.setOnClickListener {
             val intent = Intent(this, ClockActivity::class.java)
@@ -28,16 +30,6 @@ class MainPageActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        notificationsButton.setOnClickListener{
-            val intent = Intent(this, ClockActivity::class.java)
-            startActivity(intent)
-        }
-
-        logoutButton.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            startActivity(Intent(this, LoginActivity::class.java))
-            finishAffinity()
-        }
     }
 
 }

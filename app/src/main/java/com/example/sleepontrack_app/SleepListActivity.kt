@@ -125,7 +125,7 @@ class SleepListActivity : AppCompatActivity() {
             Wake Time: ${session.wakeTime}
             Duration: ${session.duration}
             Rating: ${"\u2B50".repeat(session.rating)}
-            Notes: ${session.notes.ifBlank { "None" }}
+            Notes: ${session.notes.ifBlank { " " }}
         """.trimIndent()
 
         androidx.appcompat.app.AlertDialog.Builder(this)
