@@ -49,7 +49,8 @@ class MainPageActivity : AppCompatActivity() {
         navView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_notifications -> {
-                    Toast.makeText(this, "Notifications soon", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, NotificationSettingsActivity::class.java))
+                    finishAffinity()
                     true
                 }
 
@@ -64,7 +65,6 @@ class MainPageActivity : AppCompatActivity() {
             }
         }
 
-        // Twoje przyciski
         findViewById<Button>(R.id.logSleepButton).setOnClickListener {
             startActivity(Intent(this, ClockActivity::class.java))
         }

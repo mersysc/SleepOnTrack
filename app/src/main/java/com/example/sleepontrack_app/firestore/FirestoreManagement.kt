@@ -60,4 +60,43 @@ class FirestoreManagement {
             .delete()
             .await()
     }
+
+    fun saveNotificationSettings(
+        userId: String,
+        time: String,
+        enabled: Boolean,
+        onResult: (Boolean) -> Unit
+    ) {
+        val settings = mapOf(
+            "time" to time,
+            "enabled" to enabled
+        )
+
+        FirebaseFirestore.getInstance()
+            .collection("notificationSettings")
+            .document(userId)
+            .set(settings)
+            .addOnSuccessListener { onResult(true) }
+            .addOnFailureListener { onResult(false) }
+    }
+
+    fun loadNotificationSettings(
+        userId: String,
+        onResult: (String?, Boolean) -> Unit
+    ) {
+        FirebaseFirestore.getInstance()
+            .collection("notificationSettings")
+            .document(userId)
+            .get()
+            .addOnSuccessListener { document ->
+                val time = document.getString("time")
+                val enabled = document.getBoolean("enabled") ?: false
+                onResult(time, enabled)
+            }
+            .addOnFailureListener {
+                onResult(null, false)
+            }
+    }
+
+
 }

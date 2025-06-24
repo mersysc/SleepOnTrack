@@ -9,82 +9,77 @@
     android:background="@drawable/background_bubbles"
     tools:context=".MainPageActivity">
 
-    <!-- Guideline: 15% od góry -->
+    <!-- Górna Guideline -->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/top_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="50dp" />
+        app:layout_constraintGuide_percent="0.08" />
 
     <!-- Tytuł -->
     <TextView
         android:id="@+id/actionToCHoose_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
         android:fontFamily="@font/montez"
         android:text="Choose your action"
         android:textAlignment="center"
         android:textColor="#BAD5F0"
-        android:textSize="60sp"
+        android:textSize="40sp"
         app:layout_constraintTop_toBottomOf="@id/top_guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Podsumowanie snu -->
-
-    <!-- LOG SLEEP -->
-
-    <!-- RECENT LOGS -->
     <TextView
         android:id="@+id/sleepSummaryText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/summary_background"
         android:fontFamily="@font/eczar_semibold"
         android:padding="16dp"
         android:text="Hours of sleep..."
         android:textAlignment="center"
         android:textColor="#4D749C"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/actionToCHoose_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_max="340dp" />
 
+    <!-- LOG SLEEP -->
     <Button
         android:id="@+id/logSleepButton"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/rounded_button"
         android:fontFamily="@font/eczar_semibold"
         android:text="LOG SLEEP"
         android:textColor="#4D749C"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/sleepSummaryText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_max="340dp" />
 
+    <!-- RECENT LOGS -->
     <Button
         android:id="@+id/recent_logs_button"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/rounded_button"
         android:fontFamily="@font/eczar_semibold"
         android:text="RECENT LOGS"
         android:textColor="#4D749C"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/logSleepButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_max="340dp"/>
+        app:layout_constraintWidth_max="340dp" />
 
     <!-- Logo -->
     <TextView
@@ -95,7 +90,7 @@
         android:fontFamily="@font/montez"
         android:text="SOT"
         android:textColor="#BAD5F0"
-        android:textSize="48sp"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

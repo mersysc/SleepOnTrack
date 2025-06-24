@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_bubbles"
-    android:padding="24dp"
-    tools:context=".MainActivity">
+    android:padding="24dp">
 
     <!-- Górna Guideline -->
     <androidx.constraintlayout.widget.Guideline
