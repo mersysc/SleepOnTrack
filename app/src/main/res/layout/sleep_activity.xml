@@ -283,9 +283,9 @@
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:hint="Optional note..."
-                android:textColorHint="#AABBCF"
-                android:background="@android:color/transparent"
-                android:textColor="#BAD5F0"
+                android:textColorHint="#4D74A9"
+                android:background="@drawable/summary_background"
+                android:textColor="#4D749C"
                 android:fontFamily="@font/eczar_semibold"/>
 
             <Button
